@@ -2,7 +2,7 @@
 	"name": "Javascript-Interview-Questions",
 	"version": "1.0.0",
 	"description": "### Resources",
-	"main": "index.js",
+	"main": "./test/index.js",
 	"directories": {
 		"doc": "docs"
 	},
@@ -21,7 +21,8 @@
 	},
 	"homepage": "https://github.com/jobayer977/Javascript-Interview-Questions#readme",
 	"dependencies": {
-		"markdown-yaml-metadata-parser": "^3.0.0"
+		"markdown-yaml-metadata-parser": "^3.0.0",
+		"react": "^18.2.0"
 	},
 	"type": "module"
 }
