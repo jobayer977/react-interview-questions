@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100;200;300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+	font-family: 'Poppins', 'Anek Bangla', sans-serif;
+	width: 100% !important;
+	min-height: 100% !important;
+	min-height: calc(100vh - 200px);
+	@apply bg-backgroundPrimary text-typographyPrimary;
+}
+html {
+	height: 100%;
+}
+/* .markdown-body h2:first-child {
+	display: none;
+} */
+.content {
+	@apply shadow-md lg:p-[30px] rounded-[30px];
+}
+.container {
+	@apply lg:w-[80%] p-0 lg:p-[1rem] w-[auto] mb-[30px];
+	max-width: 100% !important;
+}
+* {
+	box-sizing: border-box;
+}
+.container {
+	@apply lg:max-w-[900px] max-w-[800px];
+}
+*,
+html {
+	scroll-behavior: auto !important;
+}
+h1 {
+	display: block;
+	font-size: 2em;
+	margin-block-start: 0.67em;
+	margin-block-end: 0.67em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	font-weight: bold;
+}
+@media only screen and (max-width: 900px) {
+	body {
+		font-size: 14px !important;
+		color: #46454a;
+	}
+	p {
+		font-size: 14px !important;
+	}
+}
