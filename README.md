@@ -13,7 +13,8 @@
 - [6 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
 - [7 What is React and why use it?](#what-is-react-and-why-use-it)
 - [8 What is state in React?](#what-is-state-in-react)
-- [9 Why Not To Modify React State Directly ?](#why-not-to-modify-react-state-directly)
+- [9 Why is the key important in React list?](#why-is-the-key-important-in-react-list)
+- [10 Why Not To Modify React State Directly ?](#why-not-to-modify-react-state-directly)
 <br/><br/><br/><br/>
 
 1. ### Difference between HTML and React Event Handling?
@@ -282,7 +283,32 @@ const MyComponent = () => {
 }
 ```
 
-9. ### Why Not To Modify React State Directly ?
+9. ### Why is the key important in React list?
+
+The main purpose of keys is to help React differentiate and distinguish elements from each other, increasing its performance when diffing between the virtual and real DOM. To use keys, simply add the prop inside an element such as `<li>` . Unique IDs are the best value to assign to keys.
+
+**Example:**
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const App = () => {
+	const names = ['John', 'Sara', 'Mark']
+	return (
+		<div>
+			<h1>Hello World</h1>
+			<ul>
+				{names.map((name, index) => (
+					<li key={index}>{name}</li>
+				))}
+			</ul>
+		</div>
+	)
+}
+```
+
+10. ### Why Not To Modify React State Directly ?
 
 When we manually modify the state it won't trigger the component to re-render. So it's better to use the setState method.
 
