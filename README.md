@@ -7,9 +7,11 @@
 
 - [1 How JSX works in React ?](#how-jsx-works-in-react)
 - [2 How to create components in React?](#how-to-create-components-in-react)
-- [3 What are pure components with example?](#what-are-pure-components-with-example)
-- [4 What is React and why use it?](#what-is-react-and-why-use-it)
-- [5 What is state in React?](#what-is-state-in-react)
+- [3 What are props in React?](#what-are-props-in-react)
+- [4 What are pure components with example?](#what-are-pure-components-with-example)
+- [5 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [6 What is React and why use it?](#what-is-react-and-why-use-it)
+- [7 What is state in React?](#what-is-state-in-react)
 <br/><br/><br/><br/>
 
 1. ### How JSX works in React ?
@@ -86,7 +88,65 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-3. ### What are pure components with example?
+3. ### What are props in React?
+
+Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
+
+**Example: Props in Class Based Component**
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+class ChildComponent extends React.Component {
+	render() {
+		return (
+			<div>
+				<p>{this.props.name}</p>
+				<p>{this.props.age}</p>
+			</div>
+		)
+	}
+}
+
+class ParentComponent extends React.Component {
+	render() {
+		return (
+			<div>
+				<ChildComponent name='John' age='30' />
+				<ChildComponent name='Mary' age='25' />
+			</div>
+		)
+	}
+}
+```
+
+**Example: Props in Functional Component**
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const ChildComponent = (props) => {
+	return (
+		<div>
+			<p>{props.name}</p>
+			<p>{props.age}</p>
+		</div>
+	)
+}
+
+const ParentComponent = () => {
+	return (
+		<div>
+			<ChildComponent name='John' age='30' />
+			<ChildComponent name='Mary' age='25' />
+		</div>
+	)
+}
+```
+
+4. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -131,11 +191,15 @@ const Component = (props) => {
 }
 ```
 
-4. ### What is React and why use it?
+5. ### What are the differences between props and state
+
+Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
+
+6. ### What is React and why use it?
 
 React is an open-source front-end JavaScript library that is used for building user interfaces, especially for single-page applications. It is used for handling view layer for web and mobile apps. React was created by Jordan Walke, a software engineer working for Facebook. React was first deployed on Facebook's News Feed in 2011 and on Instagram in 2012.
 
-5. ### What is state in React?
+7. ### What is state in React?
 
 State is a plain JavaScript object that represents the state of a React component. That may change over time as the component updates over the component's lifecycle.
 
