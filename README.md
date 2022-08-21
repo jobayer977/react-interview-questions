@@ -5,16 +5,50 @@
 
  ## Table of Contents
 
-- [1 How JSX works in React ?](#how-jsx-works-in-react)
-- [2 How to create components in React?](#how-to-create-components-in-react)
-- [3 What are props in React?](#what-are-props-in-react)
-- [4 What are pure components with example?](#what-are-pure-components-with-example)
-- [5 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [6 What is React and why use it?](#what-is-react-and-why-use-it)
-- [7 What is state in React?](#what-is-state-in-react)
+- [1 Difference between HTML and React Event Handling?](#difference-between-html-and-react-event-handling)
+- [2 How JSX works in React ?](#how-jsx-works-in-react)
+- [3 How to create components in React?](#how-to-create-components-in-react)
+- [4 What are props in React?](#what-are-props-in-react)
+- [5 What are pure components with example?](#what-are-pure-components-with-example)
+- [6 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [7 What is React and why use it?](#what-is-react-and-why-use-it)
+- [8 What is state in React?](#what-is-state-in-react)
+- [9 Why Not To Modify React State Directly ?](#why-not-to-modify-react-state-directly)
 <br/><br/><br/><br/>
 
-1. ### How JSX works in React ?
+1. ### Difference between HTML and React Event Handling?
+
+There are have some syntactic and differences rules between HTML and React event handling.
+
+**HTML** HTML event handling is done using the attribute or the addEventListener method. It directly works on the DOM (Real) element.
+
+```html
+<button onclick="alert('Hello')">Click Me</button>
+
+<script>
+	const button = document.querySelector('button')
+	button.addEventListener('click', function () {
+		alert('Hello')
+	})
+</script>
+```
+
+**React** we use the concept of virtual DOM, so all the events need to specify at the time of creating the component. Here in App.js file, we have defined one component App, which is having a button. We have used “onClick” event and we are providing a method name instead of a string. As in JSX,
+
+```jsx
+const App = () => {
+	const handleClick = () => {
+		alert('Hello')
+	}
+	return (
+		<div>
+			<button onClick={handleClick}>Click Me</button>
+		</div>
+	)
+}
+```
+
+2. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
@@ -42,7 +76,7 @@ const element = (
 
 JSX uses babel to transpile HTML like syntax to JavaScript. Babel is a compiler that transpiles JavaScript code to JavaScript.
 
-2. ### How to create components in React?
+3. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -88,7 +122,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-3. ### What are props in React?
+4. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -146,7 +180,7 @@ const ParentComponent = () => {
 }
 ```
 
-4. ### What are pure components with example?
+5. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -191,15 +225,15 @@ const Component = (props) => {
 }
 ```
 
-5. ### What are the differences between props and state
+6. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-6. ### What is React and why use it?
+7. ### What is React and why use it?
 
 React is an open-source front-end JavaScript library that is used for building user interfaces, especially for single-page applications. It is used for handling view layer for web and mobile apps. React was created by Jordan Walke, a software engineer working for Facebook. React was first deployed on Facebook's News Feed in 2011 and on Instagram in 2012.
 
-7. ### What is state in React?
+8. ### What is state in React?
 
 State is a plain JavaScript object that represents the state of a React component. That may change over time as the component updates over the component's lifecycle.
 
@@ -246,5 +280,20 @@ const MyComponent = () => {
 		</div>
 	)
 }
+```
+
+9. ### Why Not To Modify React State Directly ?
+
+When we manually modify the state it won't trigger the component to re-render. So it's better to use the setState method.
+
+```jsx
+this.setState({
+	count: this.state.count + 1,
+})
+```
+
+```jsx
+const [count, setCount] = useState(0)
+setCount(count + 1)
 ```
 
