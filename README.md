@@ -18,13 +18,18 @@
 - [11 What is uses of componentDidMount in react](#what-is-uses-of-componentdidmount-in-react)
 - [12 Why is the key important in React list?](#why-is-the-key-important-in-react-list)
 - [13 What is the use of componentWillUnmount?](#what-is-the-use-of-componentwillunmount)
-- [14 What is state in React?](#what-is-state-in-react)
-- [15 What is React and why use it?](#what-is-react-and-why-use-it)
-- [16 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [17 What are pure components with example?](#what-are-pure-components-with-example)
-- [18 What are props in React?](#what-are-props-in-react)
-- [19 How to create components in React?](#how-to-create-components-in-react)
-- [20 How JSX works in React ?](#how-jsx-works-in-react)
+- [14 What is State in react ?](#what-is-state-in-react)
+- [15 What is the lifecycle of a component?](#what-is-the-lifecycle-of-a-component)
+- [16 What is SyntheticEvent ?](#what-is-syntheticevent)
+- [17 Why we use synthetic events in ReactJS ?](#why-we-use-synthetic-events-in-reactjs)
+- [18 What is the use of toggle in JavaScript?](#what-is-the-use-of-toggle-in-javascript)
+- [19 What is state in React?](#what-is-state-in-react)
+- [20 What is React and why use it?](#what-is-react-and-why-use-it)
+- [21 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [22 What are pure components with example?](#what-are-pure-components-with-example)
+- [23 What are props in React?](#what-are-props-in-react)
+- [24 How to create components in React?](#how-to-create-components-in-react)
+- [25 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -268,7 +273,29 @@ class Clock extends React.Component {
 
 The above code will render the clock every second. When the component is unmounted, the timer is cleared.
 
-14. ### What is state in React?
+14. ### What is State in react ?
+
+React components has a built-in state object. The state object is where you store property values that belongs to the component. When the state object changes, the component re-renders.
+
+15. ### What is the lifecycle of a component?
+
+Components are created (mounted on the DOM), grow by updating, and then die (unmount on DOM). This is referred to as a component lifecycle. There are different lifecycle methods that React provides at different phases of a component's life.
+
+16. ### What is SyntheticEvent ?
+
+SyntheticEvent , a cross-browser wrapper around the browser's native event. It has the same interface as the browser's native event, including stopPropagation() and preventDefault() , except the events work identically across all browsers.
+
+17. ### Why we use synthetic events in ReactJS ?
+
+Different browsers where the same event has different names. Here wrapper does is triggering all the different names for the same event effect. Therefore, whenever we are triggering an event in a ReactJS, we are not actually trying to trigger the real DOM event, instead, we are using the ReactJS custom event type, which is the synthetic event.
+
+The examples of the synthetic events are onClick(), onBlur() and onChange(). These all are not real DOM events but react synthetic events.
+
+18. ### What is the use of toggle in JavaScript?
+
+The ontoggle event occurs when the user opens or closes the ` <details>` element. The `<details>` element specifies additional details that the user can view or hide on demand.
+
+19. ### What is state in React?
 
 State is a plain JavaScript object that represents the state of a React component. That may change over time as the component updates over the component's lifecycle.
 
@@ -317,15 +344,15 @@ const MyComponent = () => {
 }
 ```
 
-15. ### What is React and why use it?
+20. ### What is React and why use it?
 
 React is an open-source front-end JavaScript library that is used for building user interfaces, especially for single-page applications. It is used for handling view layer for web and mobile apps. React was created by Jordan Walke, a software engineer working for Facebook. React was first deployed on Facebook's News Feed in 2011 and on Instagram in 2012.
 
-16. ### What are the differences between props and state
+21. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-17. ### What are pure components with example?
+22. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -370,7 +397,7 @@ const Component = (props) => {
 }
 ```
 
-18. ### What are props in React?
+23. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -428,7 +455,7 @@ const ParentComponent = () => {
 }
 ```
 
-19. ### How to create components in React?
+24. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -474,7 +501,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-20. ### How JSX works in React ?
+25. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
