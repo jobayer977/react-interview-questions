@@ -23,13 +23,18 @@
 - [16 What is SyntheticEvent ?](#what-is-syntheticevent)
 - [17 Why we use synthetic events in ReactJS ?](#why-we-use-synthetic-events-in-reactjs)
 - [18 What is the use of toggle in JavaScript?](#what-is-the-use-of-toggle-in-javascript)
-- [19 What is state in React?](#what-is-state-in-react)
-- [20 What is React and why use it?](#what-is-react-and-why-use-it)
-- [21 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [22 What are pure components with example?](#what-are-pure-components-with-example)
-- [23 What are props in React?](#what-are-props-in-react)
-- [24 How to create components in React?](#how-to-create-components-in-react)
-- [25 How JSX works in React ?](#how-jsx-works-in-react)
+- [19 How do I use componentWillMount?](#how-do-i-use-componentwillmount)
+- [20 When component did mount is called?](#when-component-did-mount-is-called)
+- [21 What is componentWillReceiveProps?](#what-is-componentwillreceiveprops)
+- [22 How can we display a list in react ?](#how-can-we-display-a-list-in-react)
+- [23 What is state in React?](#what-is-state-in-react)
+- [24 What is the use of key in react ?](#what-is-the-use-of-key-in-react)
+- [25 What is React and why use it?](#what-is-react-and-why-use-it)
+- [26 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [27 What are pure components with example?](#what-are-pure-components-with-example)
+- [28 What are props in React?](#what-are-props-in-react)
+- [29 How to create components in React?](#how-to-create-components-in-react)
+- [30 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -295,7 +300,188 @@ The examples of the synthetic events are onClick(), onBlur() and onChange(). The
 
 The ontoggle event occurs when the user opens or closes the ` <details>` element. The `<details>` element specifies additional details that the user can view or hide on demand.
 
-19. ### What is state in React?
+19. ### How do I use componentWillMount?
+
+In React, the componentWillMount() method is called before the render() method. This is where we can set up any initial state or perform any other operations before the render() method is called.
+
+**Note:** `componentWillMount()` is now deprecated in favor of `componentDidMount()`. Because it could be called multiple times, and maybe memory leaks could occur, So it is recommended to use `componentDidMount()` instead.
+
+**Example:**
+
+```jsx
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+  componentWillMount() {
+    this.setState({
+      count: this.state.count + 1
+    });
+  }
+  render() {
+    return <div>{this.state.count}</div>;
+  }
+}
+
+export default App;
+```
+
+**OUTPUT:**
+
+```html
+<div>1</div>
+```
+
+20. ### When component did mount is called?
+React component call the componentDidMount() method calls once after the component has been rendered to the DOM. This is where we can perform DOM-related operations, such as adding event listeners or timers. Because now out DOM is ready, we can start making changes to the DOM.
+
+**Example**
+
+```jsx
+class App extends React.Component {
+ state: Record<string, any> = {}
+ constructor(props: any) {
+  super(props)
+  this.state = {
+   count: 0,
+  }
+  this.handleClick = this.handleClick.bind(this)
+ }
+
+ componentDidMount() {
+  console.log('Component Did Mount')
+ }
+ handleClick() {
+  this.setState({
+   count: this.state.count + 1,
+  })
+ }
+ render() {
+  console.log('Render Method')
+  return (
+   <div>
+    <p>{this.state.count}</p>
+    <button onClick={this.handleClick}>Increment</button>
+   </div>
+  )
+ }
+}
+export default App
+
+// Component Did Mount
+// Render Method
+// Render Method
+// Render Method
+// Render Method
+// Render Method
+// Render Method
+
+
+```
+
+21. ### What is componentWillReceiveProps?
+This method is used during the updating phase of the React lifecycle. This function is generally called if the props passed to the component change. It is used to update the state in response with the new received props.
+
+```jsx
+class App extends React.Component {
+ state: Record<string, any> = {}
+ constructor(props: any) {
+  super(props)
+  this.state = {
+   count: 0,
+  }
+ }
+ render() {
+  return (
+   <>
+    <Child currentCount={this.state.count} />
+    <button
+     onClick={() =>
+      this.setState({
+       count: this.state.count + 1,
+      })
+     }>
+     Increment
+    </button>
+   </>
+  )
+ }
+}
+
+```
+
+**Child**
+
+```jsx
+ class Child extends Component<{ currentCount: number }> {
+ componentWillReceiveProps(nextProps: any): void {
+  console.log('componentWillReceiveProps', nextProps)
+ }
+ render() {
+  return <div>Count - {this.props.currentCount}</div>
+ }
+}```
+
+22. ### How can we display a list in react ?
+
+To Render a list in React. we can use the following code:
+
+**Class Based Component**
+
+```jsx
+class App extends React.Component {
+  state = {
+    items: [],
+  }
+  componentDidMount() {
+    this.setState({
+      items: [
+        { id: 1, text: 'item 1' },
+        { id: 2, text: 'item 2' },
+        { id: 3, text: 'item 3' },
+      ],
+    })
+  }
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.items.map(item => (
+            <li key={item.id}>{item.text}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+}
+```
+
+**Functional Component**
+
+```jsx
+const App = () => {
+  const items = [
+    { id: 1, text: 'item 1' },
+    { id: 2, text: 'item 2' },
+    { id: 3, text: 'item 3' },
+  ]
+  return (
+    <div>
+      <ul>
+        {items.map(item => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+23. ### What is state in React?
 
 State is a plain JavaScript object that represents the state of a React component. That may change over time as the component updates over the component's lifecycle.
 
@@ -344,15 +530,31 @@ const MyComponent = () => {
 }
 ```
 
-20. ### What is React and why use it?
+24. ### What is the use of key in react ?
+
+Keys are used to identify which item in a list has changed. Keys should be unique for each item in a list. The best way to generate a key is to use the item's IDs in the list.
+
+```jsx
+const items = [
+  { id: 1, text: 'Hello' },
+  { id: 2, text: 'World' },
+  { id: 3, text: '!' },
+];
+
+const listItems = items.map(item => (
+  <li key={item.id}>{item.text}</li>
+));
+```
+
+25. ### What is React and why use it?
 
 React is an open-source front-end JavaScript library that is used for building user interfaces, especially for single-page applications. It is used for handling view layer for web and mobile apps. React was created by Jordan Walke, a software engineer working for Facebook. React was first deployed on Facebook's News Feed in 2011 and on Instagram in 2012.
 
-21. ### What are the differences between props and state
+26. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-22. ### What are pure components with example?
+27. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -397,7 +599,7 @@ const Component = (props) => {
 }
 ```
 
-23. ### What are props in React?
+28. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -455,7 +657,7 @@ const ParentComponent = () => {
 }
 ```
 
-24. ### How to create components in React?
+29. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -501,7 +703,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-25. ### How JSX works in React ?
+30. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
