@@ -29,12 +29,13 @@
 - [22 How can we display a list in react ?](#how-can-we-display-a-list-in-react)
 - [23 What is state in React?](#what-is-state-in-react)
 - [24 What is the use of key in react ?](#what-is-the-use-of-key-in-react)
-- [25 What is React and why use it?](#what-is-react-and-why-use-it)
-- [26 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [27 What are pure components with example?](#what-are-pure-components-with-example)
-- [28 What are props in React?](#what-are-props-in-react)
-- [29 How to create components in React?](#how-to-create-components-in-react)
-- [30 How JSX works in React ?](#how-jsx-works-in-react)
+- [25 What is reconciliation?](#what-is-reconciliation)
+- [26 What is React and why use it?](#what-is-react-and-why-use-it)
+- [27 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [28 What are pure components with example?](#what-are-pure-components-with-example)
+- [29 What are props in React?](#what-are-props-in-react)
+- [30 How to create components in React?](#how-to-create-components-in-react)
+- [31 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -546,15 +547,19 @@ const listItems = items.map(item => (
 ));
 ```
 
-25. ### What is React and why use it?
+25. ### What is reconciliation?
+
+Reconciliation is the process of comparing two sets of data and determining which items need to be added, removed, or updated to match the new data. This process is known as a diff, and it is often used to determine which DOM nodes need to be updated to reflect the new data. In React, reconciliation is performed automatically by React when the component is re-rendered. This is called reconciliation. The process of reconciling is known as a diff.
+
+26. ### What is React and why use it?
 
 React is an open-source front-end JavaScript library that is used for building user interfaces, especially for single-page applications. It is used for handling view layer for web and mobile apps. React was created by Jordan Walke, a software engineer working for Facebook. React was first deployed on Facebook's News Feed in 2011 and on Instagram in 2012.
 
-26. ### What are the differences between props and state
+27. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-27. ### What are pure components with example?
+28. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -599,7 +604,7 @@ const Component = (props) => {
 }
 ```
 
-28. ### What are props in React?
+29. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -657,7 +662,7 @@ const ParentComponent = () => {
 }
 ```
 
-29. ### How to create components in React?
+30. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -703,7 +708,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-30. ### How JSX works in React ?
+31. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
