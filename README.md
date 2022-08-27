@@ -30,12 +30,16 @@
 - [23 What is state in React?](#what-is-state-in-react)
 - [24 What is the use of key in react ?](#what-is-the-use-of-key-in-react)
 - [25 What is reconciliation?](#what-is-reconciliation)
-- [26 What is React and why use it?](#what-is-react-and-why-use-it)
-- [27 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [28 What are pure components with example?](#what-are-pure-components-with-example)
-- [29 What are props in React?](#what-are-props-in-react)
-- [30 How to create components in React?](#how-to-create-components-in-react)
-- [31 How JSX works in React ?](#how-jsx-works-in-react)
+- [26 What is a purpose of code splitting?](#what-is-a-purpose-of-code-splitting)
+- [27 What is the proper placement for error boundaries?](#what-is-the-proper-placement-for-error-boundaries)
+- [28 When to Use Context](#when-to-use-context)
+- [29 How does a forward Ref work?](#how-does-a-forward-ref-work)
+- [30 What is React and why use it?](#what-is-react-and-why-use-it)
+- [31 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [32 What are pure components with example?](#what-are-pure-components-with-example)
+- [33 What are props in React?](#what-are-props-in-react)
+- [34 How to create components in React?](#how-to-create-components-in-react)
+- [35 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -551,15 +555,46 @@ const listItems = items.map(item => (
 
 Reconciliation is the process of comparing two sets of data and determining which items need to be added, removed, or updated to match the new data. This process is known as a diff, and it is often used to determine which DOM nodes need to be updated to reflect the new data. In React, reconciliation is performed automatically by React when the component is re-rendered. This is called reconciliation. The process of reconciling is known as a diff.
 
-26. ### What is React and why use it?
+26. ### What is a purpose of code splitting?
+
+Code Splitting is a technique for splitting large JavaScript files into smaller chunks. When we bundle our application we combine all the code into a single file and the browser initially loads the whole code. This can be a problem if the code is large and the browser has to download it all at once. Her Code splitting allows us to split the code into smaller chunks(file) and load each chunk separately when it is needed.
+
+<details>
+<summary>Example</summary>
+
+```jsx
+const ChildComponent = React.lazy(() => import('./ChildComponent'))
+
+const App = () => (
+	<React.Suspense fallback={<div>Loading...</div>}>
+		<ChildComponent />
+	</React.Suspense>
+)
+```
+
+<details>
+
+27. ### What is the proper placement for error boundaries?
+
+Error boundaries are React components that catch and display errors that occur in their children. They are useful for displaying error messages to the user. So it's best to place error boundaries at the top of the component tree and catch errors all the way down.
+
+28. ### When to Use Context
+
+Context is a way to pass data through the component tree without having to pass props down manually at every level. This can be very useful for keeping data that is shared between components local to the components that need it. For example, a global theme object or a current language.
+
+29. ### How does a forward Ref work?
+
+React forwardRef is a method that allows parent components pass down (i.e., “forward”) refs to their children. Using forwardRef in React gives the child component a reference to a DOM element created by its parent component. This then allows the child to read and modify that element anywhere it is being used.
+
+30. ### What is React and why use it?
 
 React is an open-source front-end JavaScript library that is used for building user interfaces, especially for single-page applications. It is used for handling view layer for web and mobile apps. React was created by Jordan Walke, a software engineer working for Facebook. React was first deployed on Facebook's News Feed in 2011 and on Instagram in 2012.
 
-27. ### What are the differences between props and state
+31. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-28. ### What are pure components with example?
+32. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -604,7 +639,7 @@ const Component = (props) => {
 }
 ```
 
-29. ### What are props in React?
+33. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -662,7 +697,7 @@ const ParentComponent = () => {
 }
 ```
 
-30. ### How to create components in React?
+34. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -708,7 +743,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-31. ### How JSX works in React ?
+35. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
