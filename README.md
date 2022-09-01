@@ -34,12 +34,17 @@
 - [27 What is the proper placement for error boundaries?](#what-is-the-proper-placement-for-error-boundaries)
 - [28 When to Use Context](#when-to-use-context)
 - [29 How does a forward Ref work?](#how-does-a-forward-ref-work)
-- [30 What is React and why use it?](#what-is-react-and-why-use-it)
-- [31 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [32 What are pure components with example?](#what-are-pure-components-with-example)
-- [33 What are props in React?](#what-are-props-in-react)
-- [34 How to create components in React?](#how-to-create-components-in-react)
-- [35 How JSX works in React ?](#how-jsx-works-in-react)
+- [30 What is controlled component in react ?](#what-is-controlled-component-in-react)
+- [31 What is uncontrolled component in react ?](#what-is-uncontrolled-component-in-react)
+- [32 What are higher-order component?](#what-are-higher-order-component)
+- [33 What are the children in React?](#what-are-the-children-in-react)
+- [34 What is React and why use it?](#what-is-react-and-why-use-it)
+- [35 What is the purpose of a function as a child in React?](#what-is-the-purpose-of-a-function-as-a-child-in-react)
+- [36 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [37 What are pure components with example?](#what-are-pure-components-with-example)
+- [38 What are props in React?](#what-are-props-in-react)
+- [39 How to create components in React?](#how-to-create-components-in-react)
+- [40 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -586,15 +591,77 @@ Context is a way to pass data through the component tree without having to pass 
 
 React forwardRef is a method that allows parent components pass down (i.e., “forward”) refs to their children. Using forwardRef in React gives the child component a reference to a DOM element created by its parent component. This then allows the child to read and modify that element anywhere it is being used.
 
-30. ### What is React and why use it?
+30. ### What is controlled component in react ?
+
+Components are those in which form’s data is handled by the component’s state. It takes its current value through props and makes changes through callbacks like onClick,onChange, etc.
+
+**Example**
+
+```js
+function App() {
+	const [name, setName] = useState('')
+	const [showName, setShowName] = useState(false)
+
+	function handleSubmit(e) {
+		e.preventDefault()
+		setShowName(true)
+	}
+
+	return (
+		<div className='App'>
+			<form>
+				<label>Name:</label>
+				<input
+					name='name'
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+				/>
+				<button onClick={handleSubmit} type='submit'>
+					Submit
+				</button>
+			</form>
+			{/* Checks the condition if showName is 
+      true, which will be true only if 
+      we click on the submit button */}
+			{showName === true && <p>You have submitted. Name: {name}</p>}
+		</div>
+	)
+}
+
+export default App
+```
+
+31. ### What is uncontrolled component in react ?
+
+In a controlled component, form data is handled by a React component. The alternative is uncontrolled components, where form data is handled by the DOM itself.
+
+To write an uncontrolled component, instead of writing an event handler for every state update, we can use a `ref` to get form values from the DOM.
+
+32. ### What are higher-order component?
+
+A higher-order component (HOC) is an advanced technique in React for reusing component logic. HOCs are not part of the React API, per se. They are a pattern that emerges from React's compositional nature. Concretely, a higher-order component is a function that takes a component and returns a new component.
+
+33. ### What are the children in React?
+
+children is a special prop, automatically passed to every component, that can be used to render the content included between the opening and closing tags when invoking a component. These kinds of components are identified by the official documentation as “boxes”.
+
+```jsx
+<MyComponent>Hello world!</MyComponent>
+```
+
+34. ### What is React and why use it?
 
 React is an open-source front-end JavaScript library that is used for building user interfaces, especially for single-page applications. It is used for handling view layer for web and mobile apps. React was created by Jordan Walke, a software engineer working for Facebook. React was first deployed on Facebook's News Feed in 2011 and on Instagram in 2012.
 
-31. ### What are the differences between props and state
+35. ### What is the purpose of a function as a child in React?
+
+A Function as child component is a pattern that lets you pass a render function to a component as the children prop so you can change what you can pass as children to a component.
+
+36. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-32. ### What are pure components with example?
+37. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -639,7 +706,7 @@ const Component = (props) => {
 }
 ```
 
-33. ### What are props in React?
+38. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -697,7 +764,7 @@ const ParentComponent = () => {
 }
 ```
 
-34. ### How to create components in React?
+39. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -743,7 +810,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-35. ### How JSX works in React ?
+40. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
