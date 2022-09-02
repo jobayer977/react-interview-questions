@@ -40,11 +40,13 @@
 - [33 What are the children in React?](#what-are-the-children-in-react)
 - [34 What is React and why use it?](#what-is-react-and-why-use-it)
 - [35 What is the purpose of a function as a child in React?](#what-is-the-purpose-of-a-function-as-a-child-in-react)
-- [36 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [37 What are pure components with example?](#what-are-pure-components-with-example)
-- [38 What are props in React?](#what-are-props-in-react)
-- [39 How to create components in React?](#how-to-create-components-in-react)
-- [40 How JSX works in React ?](#how-jsx-works-in-react)
+- [36 What is virtualization in rendering?](#what-is-virtualization-in-rendering)
+- [37 What is the use of React portals?](#what-is-the-use-of-react-portals)
+- [38 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [39 What are pure components with example?](#what-are-pure-components-with-example)
+- [40 What are props in React?](#what-are-props-in-react)
+- [41 How to create components in React?](#how-to-create-components-in-react)
+- [42 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -657,11 +659,30 @@ React is an open-source front-end JavaScript library that is used for building u
 
 A Function as child component is a pattern that lets you pass a render function to a component as the children prop so you can change what you can pass as children to a component.
 
-36. ### What are the differences between props and state
+36. ### What is virtualization in rendering?
+
+Virtualization is a technique that allows us to render only a subset of the items in a list. This is useful when we have a large list of items that we want to render, but we don't want to render all of them at once. This is especially useful when we have a list of items that are expensive to render, such as images or videos.
+
+37. ### What is the use of React portals?
+
+Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component. The first argument ( child ) is any renderable React child, such as an element, string, or fragment. The second argument ( container ) is a DOM element.
+
+**Example**
+
+```jsx
+const App = () => {
+	return ReactDOM.createPortal(
+		<h1>Portals Demo</h1>,
+		document.querySelector('body')
+	)
+}
+```
+
+38. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-37. ### What are pure components with example?
+39. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -706,7 +727,7 @@ const Component = (props) => {
 }
 ```
 
-38. ### What are props in React?
+40. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -764,7 +785,7 @@ const ParentComponent = () => {
 }
 ```
 
-39. ### How to create components in React?
+41. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -810,7 +831,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-40. ### How JSX works in React ?
+42. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
