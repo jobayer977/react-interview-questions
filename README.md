@@ -42,11 +42,14 @@
 - [35 What is the purpose of a function as a child in React?](#what-is-the-purpose-of-a-function-as-a-child-in-react)
 - [36 What is virtualization in rendering?](#what-is-virtualization-in-rendering)
 - [37 What is the use of React portals?](#what-is-the-use-of-react-portals)
-- [38 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [39 What are pure components with example?](#what-are-pure-components-with-example)
-- [40 What are props in React?](#what-are-props-in-react)
-- [41 How to create components in React?](#how-to-create-components-in-react)
-- [42 How JSX works in React ?](#how-jsx-works-in-react)
+- [38 What is the use of refs in React?](#what-is-the-use-of-refs-in-react)
+- [39 What are the render props?](#what-are-the-render-props)
+- [40 What is Strict Mode in react ?](#what-is-strict-mode-in-react)
+- [41 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [42 What are pure components with example?](#what-are-pure-components-with-example)
+- [43 What are props in React?](#what-are-props-in-react)
+- [44 How to create components in React?](#how-to-create-components-in-react)
+- [45 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -678,11 +681,114 @@ const App = () => {
 }
 ```
 
-38. ### What are the differences between props and state
+38. ### What is the use of refs in React?
+
+Refs provide a way to access DOM nodes or React elements created in the render method. Refs are useful when you need to manage focus, select text, or perform animations and working with third-party DOM libraries.
+
+**Example**
+
+```jsx
+class CustomTextInput extends React.Component {
+	constructor(props) {
+		super(props)
+		// create a ref to store the textInput DOM element
+		this.textInput = React.createRef()
+		this.focusTextInput = this.focusTextInput.bind(this)
+	}
+
+	focusTextInput() {
+		// Explicitly focus the text input using the raw DOM API
+		// Note: we're accessing "current" to get the DOM node
+		this.textInput.current.focus()
+	}
+
+	render() {
+		// tell React that we want to associate the <input> ref
+		// with the `textInput` that we created in the constructor
+		return (
+			<div>
+				<input type='text' ref={this.textInput} />
+
+				<input
+					type='button'
+					value='Focus the text input'
+					onClick={this.focusTextInput}
+				/>
+			</div>
+		)
+	}
+}
+```
+
+39. ### What are the render props?
+
+The term “render prop” refers to a technique for sharing code between React components using a prop whose value is a function. A component with a render prop takes a function that returns a React element and calls it instead of implementing its own render logic.
+
+**Example**
+
+```jsx
+const Mouse = (props) => {
+	const [mouse, setMouse] = useState({ x: 0, y: 0 })
+
+	const handleMouseMove = (event) => {
+		setMouse({
+			x: event.clientX,
+			y: event.clientY,
+		})
+	}
+
+	return (
+		<div style={{ height: '100%' }} onMouseMove={handleMouseMove}>
+			{props.render(mouse)}
+		</div>
+	)
+}
+
+const App = () => {
+	return (
+		<div>
+			<h1>Move the mouse around!</h1>
+			<Mouse
+				render={(mouse) => (
+					<p>
+						The current mouse position is ({mouse.x}, {mouse.y})
+					</p>
+				)}
+			/>
+		</div>
+	)
+}
+```
+
+40. ### What is Strict Mode in react ?
+
+StrictMode is a tool for highlighting potential problems in an application. Like Fragment, StrictMode does not render any visible UI. It activates additional checks and warnings for its descendants.
+
+**Example**
+
+```jsx
+import React from 'react'
+
+function ExampleApplication() {
+	return (
+		<div>
+			<Header />
+			<React.StrictMode>
+				<div>
+					<ProfilePage />
+				</div>
+			</React.StrictMode>
+			<Footer />
+		</div>
+	)
+}
+```
+
+41. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-39. ### What are pure components with example?
+42. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -727,7 +833,7 @@ const Component = (props) => {
 }
 ```
 
-40. ### What are props in React?
+43. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -785,7 +891,7 @@ const ParentComponent = () => {
 }
 ```
 
-41. ### How to create components in React?
+44. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -831,7 +937,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-42. ### How JSX works in React ?
+45. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
