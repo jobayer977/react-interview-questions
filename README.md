@@ -45,11 +45,16 @@
 - [38 What is the use of refs in React?](#what-is-the-use-of-refs-in-react)
 - [39 What are the render props?](#what-are-the-render-props)
 - [40 What is Strict Mode in react ?](#what-is-strict-mode-in-react)
-- [41 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
-- [42 What are pure components with example?](#what-are-pure-components-with-example)
-- [43 What are props in React?](#what-are-props-in-react)
-- [44 How to create components in React?](#how-to-create-components-in-react)
-- [45 How JSX works in React ?](#how-jsx-works-in-react)
+- [41 What are Hooks in React ?](#what-are-hooks-in-react)
+- [42 What are the two rules of React Hooks?](#what-are-the-two-rules-of-react-hooks)
+- [43 Why is useEffect used?](#why-is-useeffect-used)
+- [44 What is useState used for?](#what-is-usestate-used-for)
+- [45 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
+- [46 What is useContext used for in React?](#what-is-usecontext-used-for-in-react)
+- [47 What are pure components with example?](#what-are-pure-components-with-example)
+- [48 What are props in React?](#what-are-props-in-react)
+- [49 How to create components in React?](#how-to-create-components-in-react)
+- [50 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -784,11 +789,89 @@ function ExampleApplication() {
 }
 ```
 
-41. ### What are the differences between props and state
+41. ### What are Hooks in React ?
+
+Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
+
+42. ### What are the two rules of React Hooks?
+
+Hooks are JavaScript functions, but they impose two additional rules:
+
+- Don't call Hooks inside loops, conditions, or nested functions.
+- Only call Hooks from React function components.
+
+43. ### Why is useEffect used?
+
+The motivation behind the introduction of useEffect Hook is to eliminate the side-effects of using class-based components. For example, tasks like updating the DOM, fetching data from API end-points, setting up subscriptions or timers, etc can be lead to unwarranted side-effects.
+
+44. ### What is useState used for?
+
+useState is a Hook (function) that allows us to have state variables in functional components.
+
+```js
+const [count, setCount] = useState(0)
+```
+
+useState returns an array with 2 values: the current state and a function to update it.
+
+**Example**
+
+```js
+import React, { useState } from 'react'
+function Example() {
+	// Declare a new state variable, which we'll call "count"
+	const [count, setCount] = useState(0)
+	return (
+		<div>
+			<p>You clicked {count} times</p>
+			<button onClick={() => setCount(count + 1)}>Click me</button>
+		</div>
+	)
+}
+```
+
+45. ### What are the differences between props and state
 
 Both props and state are plain JavaScript objects. While both of them hold information that influences the output of render, they are different in their functionality with respect to component. Props get passed to the component similar to function parameters whereas state is managed within the component similar to variables declared within a function.
 
-42. ### What are pure components with example?
+46. ### What is useContext used for in React?
+
+Context provides a way to pass data or state through the component tree without having to pass props down manually through each nested component.
+
+**Example**
+
+```js
+import { render } from 'react-dom'
+import React, { useState } from 'react'
+const ThemeContext = React.createContext('light')
+
+function App() {
+	const [theme, setTheme] = useState('light')
+	return (
+		<ThemeContext.Provider value={{ setTheme, theme }}>
+			<Toolbar />
+		</ThemeContext.Provider>
+	)
+}
+```
+
+## useContext
+
+```js
+import React, { useContext } from 'react'
+function Toolbar() {
+	const { theme, setTheme } = useContext(ThemeContext)
+	return (
+		<div>
+			Current theme: {theme}
+			<button onClick={() => setTheme('dark')}>Dark</button>
+			<button onClick={() => setTheme('light')}>Light</button>
+		</div>
+	)
+}
+```
+
+47. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -833,7 +916,7 @@ const Component = (props) => {
 }
 ```
 
-43. ### What are props in React?
+48. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -891,7 +974,7 @@ const ParentComponent = () => {
 }
 ```
 
-44. ### How to create components in React?
+49. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -937,7 +1020,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-45. ### How JSX works in React ?
+50. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
