@@ -51,10 +51,15 @@
 - [44 What is useState used for?](#what-is-usestate-used-for)
 - [45 What are the differences between props and state](#what-are-the-differences-between-props-and-state)
 - [46 What is useContext used for in React?](#what-is-usecontext-used-for-in-react)
-- [47 What are pure components with example?](#what-are-pure-components-with-example)
-- [48 What are props in React?](#what-are-props-in-react)
-- [49 How to create components in React?](#how-to-create-components-in-react)
-- [50 How JSX works in React ?](#how-jsx-works-in-react)
+- [47 What is useReducer for?](#what-is-usereducer-for)
+- [48 Why useCallback is used in React?](#why-usecallback-is-used-in-react)
+- [49 What is useMemo used for?](#what-is-usememo-used-for)
+- [50 What is useRef used for?](#what-is-useref-used-for)
+- [51 Does useLayoutEffect run before render?](#does-uselayouteffect-run-before-render)
+- [52 What are pure components with example?](#what-are-pure-components-with-example)
+- [53 What are props in React?](#what-are-props-in-react)
+- [54 How to create components in React?](#how-to-create-components-in-react)
+- [55 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -871,7 +876,169 @@ function Toolbar() {
 }
 ```
 
-47. ### What are pure components with example?
+47. ### What is useReducer for?
+
+useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.
+
+**Example**
+
+```js
+function reducer(state, action) {
+	switch (action.type) {
+		case 'reset':
+			return init(action.payload)
+		case 'increment':
+			return { count: state.count + 1 }
+		case 'decrement':
+			return { count: state.count - 1 }
+		default:
+			throw new Error()
+	}
+}
+
+function Counter() {
+	const [state, dispatch] = useReducer(reducer, { count: 1 })
+	return (
+		<>
+			Count: {state.count}
+			<button
+				onClick={() => dispatch({ type: 'reset', payload: initialCount })}>
+				Reset
+			</button>
+			<button onClick={() => dispatch({ type: 'increment' })}>+</button>
+			<button onClick={() => dispatch({ type: 'decrement' })}>-</button>
+		</>
+	)
+}
+```
+
+48. ### Why useCallback is used in React?
+
+The `useCallback` hook is used to memorize the callback function. It is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders (e.g. `shouldComponentUpdate`).
+
+**Example**
+
+```js
+const Child = React.memo(function Child({ onClick, name }) {
+	console.log('Rendering Child', name)
+	return (
+		<button onClick={onClick} type='button'>
+			{name}
+		</button>
+	)
+})
+
+const Parent = () => {
+	const [count, setCount] = useState(0)
+	const [name, setName] = useState('Mary')
+
+	const handleAlertClick = useCallback(() => {
+		setTimeout(() => {
+			alert('You clicked on: ' + name)
+		}, 3000)
+	}, [name])
+
+	return (
+		<div>
+			<Child name={name} onClick={handleAlertClick} />
+			<hr />
+			<button onClick={() => setCount((c) => c + 1)}>+ {count}</button>
+			<button onClick={() => setName('John')}>Change name</button>
+		</div>
+	)
+}
+```
+
+49. ### What is useMemo used for?
+
+useMemo will only recompute the memoized value when one of the dependencies has changed. This optimization helps to avoid expensive calculations on every render.
+
+**Example**
+
+```js
+const App = () => {
+	const [val, setVal] = useState(0)
+	const [val2, setVal2] = useState(0)
+
+	const expensive = useMemo(() => {
+		let i = 0
+		while (i < 1000000000) i++
+		return val + val2
+	}, [val, val2])
+
+	return (
+		<div>
+			<input
+				type='number'
+				value={val}
+				onChange={(e) => setVal(parseInt(e.target.value))}
+			/>
+			<input
+				type='number'
+				value={val2}
+				onChange={(e) => setVal2(parseInt(e.target.value))}
+			/>
+			<div>{expensive}</div>
+		</div>
+	)
+}
+```
+
+The above example will only recompute the expensive value when the val or val2 changes. If you remove the dependency array, the expensive value will be recomputed on every render.
+
+50. ### What is useRef used for?
+
+The useRef Hook allows you to persist values between renders. It can be used to store a mutable value that does not cause a re-render when updated. It can be used to access a DOM element directly.
+
+**Example**
+
+```js
+function TextInputWithFocusButton() {
+	const inputEl = useRef(null)
+	const onButtonClick = () => {
+		// `current` points to the mounted text input element
+		inputEl.current.focus()
+	}
+	return (
+		<>
+			<input ref={inputEl} type='text' />
+			<button onClick={onButtonClick}>Focus the input</button>
+		</>
+	)
+}
+```
+
+51. ### Does useLayoutEffect run before render?
+
+The useLayoutEffect hook works synchronously. It runs immediately after React has performed all DOM mutations. It will run after every render but before the screen is updated.
+
+```js
+const App = () => {
+	const [val, setVal] = useState(0)
+	const [val2, setVal2] = useState(0)
+
+	useLayoutEffect(() => {
+		console.log('useLayoutEffect')
+	})
+
+	return (
+		<div>
+			<input
+				type='number'
+				value={val}
+				onChange={(e) => setVal(parseInt(e.target.value))}
+			/>
+			<input
+				type='number'
+				value={val2}
+				onChange={(e) => setVal2(parseInt(e.target.value))}
+			/>
+		</div>
+	)
+}
+```
+
+52. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -916,7 +1083,7 @@ const Component = (props) => {
 }
 ```
 
-48. ### What are props in React?
+53. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -974,7 +1141,7 @@ const ParentComponent = () => {
 }
 ```
 
-49. ### How to create components in React?
+54. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -1020,7 +1187,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-50. ### How JSX works in React ?
+55. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
