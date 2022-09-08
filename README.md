@@ -56,10 +56,14 @@
 - [49 What is useMemo used for?](#what-is-usememo-used-for)
 - [50 What is useRef used for?](#what-is-useref-used-for)
 - [51 Does useLayoutEffect run before render?](#does-uselayouteffect-run-before-render)
-- [52 What are pure components with example?](#what-are-pure-components-with-example)
-- [53 What are props in React?](#what-are-props-in-react)
-- [54 How to create components in React?](#how-to-create-components-in-react)
-- [55 How JSX works in React ?](#how-jsx-works-in-react)
+- [52 What is reconciliation?](#what-is-reconciliation)
+- [53 What is fragment in Reactjs and why do we use it?](#what-is-fragment-in-reactjs-and-why-do-we-use-it)
+- [54 What are pure components with example?](#what-are-pure-components-with-example)
+- [55 What is stateless and stateful components?](#what-is-stateless-and-stateful-components)
+- [56 What are keys used for in React?](#what-are-keys-used-for-in-react)
+- [57 What are props in React?](#what-are-props-in-react)
+- [58 How to create components in React?](#how-to-create-components-in-react)
+- [59 How JSX works in React ?](#how-jsx-works-in-react)
 <br/><br/><br/><br/>
 
 1. ### Why Not To Modify React State Directly ?
@@ -1038,7 +1042,45 @@ const App = () => {
 }
 ```
 
-52. ### What are pure components with example?
+52. ### What is reconciliation?
+
+When a component's props or state change, React decides whether an actual DOM update is necessary by comparing the newly returned element with the previously rendered one. When they are not equal, React will update the DOM.
+
+53. ### What is fragment in Reactjs and why do we use it?
+
+React Fragments allow you to wrap or group multiple elements without adding an extra node to the DOM. This can be useful when rendering multiple child elements/components in a single parent component.
+
+**Example**
+
+```js
+import React from 'react'
+
+function FragmentDemo() {
+	return (
+		<React.Fragment>
+			<h1>Fragment Demo</h1>
+			<p>This describes the Fragment Demo component</p>
+		</React.Fragment>
+	)
+}
+```
+
+Or
+
+```js
+import React from 'react'
+
+function FragmentDemo() {
+	return (
+		<>
+			<h1>Fragment Demo</h1>
+			<p>This describes the Fragment Demo component</p>
+		</>
+	)
+}
+```
+
+54. ### What are pure components with example?
 
 Pure component, it is only re-rendered when its props change. They are a good way to optimize your application. Pure components are a good way to avoid bugs caused by side-effects. It's doesn't have a life cycle or state.
 
@@ -1083,7 +1125,52 @@ const Component = (props) => {
 }
 ```
 
-53. ### What are props in React?
+55. ### What is stateless and stateful components?
+
+**Stateless components**
+
+Stateless components are components that do not have state. They are also called functional components. They are just functions that take props as an argument and return a React element. They are also called pure components because they do not have any side effects.
+
+```js
+const StatelessComponent = (props) => {
+	return <div>{props.name}</div>
+}
+```
+
+**Stateful components**
+
+Stateful components are components that have state. They are also called class components. They are classes that extend React.Component and have a render method. They are also called impure components because they have side effects. But In React Hooks, we can also use state in functional components.
+
+```js
+class StatefulComponent extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			name: 'John',
+		}
+	}
+	render() {
+		return <div>{this.state.name}</div>
+	}
+}
+```
+
+**Hooks in functional components**
+
+```js
+import React, { useState } from 'react'
+
+function FunctionalComponent() {
+	const [name, setName] = useState('John')
+	return <div>{name}</div>
+}
+```
+
+56. ### What are keys used for in React?
+
+Keys help React identify which items have changed, are added, or are removed.
+
+57. ### What are props in React?
 
 Props are arguments passed into a component. They are single or multiple values that are passed into a component similar to how attributes are passed into an HTML element. They are data passed down from a parent component to a child component. It's useful to pass custom data into a component. Manually tiggering a re-render is not necessary.
 
@@ -1141,7 +1228,7 @@ const ParentComponent = () => {
 }
 ```
 
-54. ### How to create components in React?
+58. ### How to create components in React?
 
 There are two ways to create components in React:
 
@@ -1187,7 +1274,7 @@ import ReactDOM from 'react-dom'
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-55. ### How JSX works in React ?
+59. ### How JSX works in React ?
 
 JSX is a syntax extension to JavaScript that allows us to write HTML like syntax. It is a subset of JavaScript that allows us to write HTML-like syntax.
 
